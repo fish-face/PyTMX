@@ -11,7 +11,7 @@ Tests all Tiled features -except- terrains.
 import pygame
 from pygame.locals import *
 from pytmx import *
-from pytmx.tmxloader import load_pygame
+from pytmx.pygame_loader import load_pygame
 
 
 def init_screen(width, height):
@@ -46,14 +46,14 @@ class TiledRenderer(object):
         for layer in self.tmx_data.visible_layers:
 
             # draw map tile layers
-            if isinstance(layer, TiledTileLayer):
+            if isinstance(layer, TileLayer):
                 for x, y, gid in layer:
                     tile = gt(gid)
                     if tile:
                         surface_blit(tile, (x * tw, y * th))
 
             # draw objects
-            elif isinstance(layer, TiledObjectGroup):
+            elif isinstance(layer, ObjectGroup):
                 for o in layer:
                     print(o)
 
@@ -74,7 +74,7 @@ class TiledRenderer(object):
                                          (o.x, o.y, o.width, o.height), 3)
 
             # draw image layers
-            elif isinstance(layer, TiledImageLayer):
+            elif isinstance(layer, ImageLayer):
                 image = gt(layer.gid)
                 if image:
                     surface.blit(image, (0, 0))

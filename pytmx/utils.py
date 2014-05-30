@@ -1,9 +1,12 @@
 from itertools import product
 
+__all__ = ['decode_gid', 'build_rects', 'simplify', 'handle_bool']
+
 
 def build_rects(tmxmap, layer, tileset=None, real_gid=None):
     """
-    generate a set of non-overlapping rects that represents the distribution of the specified gid.
+    generate a set of non-overlapping rects that represents the distribution of
+    the specified gid.
 
     useful for generating rects for use in collision detection
     """
@@ -103,7 +106,6 @@ def simplify(all_points, tilewidth, tileheight):
     """
     from pygame import Rect
 
-
     def pick_rect(points, rects):
         ox, oy = sorted([(sum(p), p) for p in points])[0][1]
         x = ox
@@ -129,7 +131,7 @@ def simplify(all_points, tilewidth, tileheight):
                     break
 
         c_rect = Rect(ox * tilewidth, oy * tileheight,
-                     (ex - ox + 1) * tilewidth, (y - oy + 1) * tileheight)
+                      (ex - ox + 1) * tilewidth, (y - oy + 1) * tileheight)
 
         rects.append(c_rect)
 
@@ -140,11 +142,8 @@ def simplify(all_points, tilewidth, tileheight):
         if points:
             pick_rect(points, rects)
 
-    rect_list = []
+    rect_list = list()
     while all_points:
         pick_rect(all_points, rect_list)
 
     return rect_list
-
-
-__all__ = ['decode_gid', 'build_rects', 'simplify', 'handle_bool']
