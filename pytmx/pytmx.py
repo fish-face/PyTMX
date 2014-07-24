@@ -459,6 +459,7 @@ class TiledTileset(TiledElement):
             p = parse_properties(child)
             p['width'] = self.tilewidth
             p['height'] = self.tileheight
+            self.parent.register_gid(real_gid + self.firstgid)
             for gid, flags in self.parent.map_gid(real_gid + self.firstgid):
                 self.parent.setTileProperties(gid, p)
 
